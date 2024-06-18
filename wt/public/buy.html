@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Ordering</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: rgb(74, 82, 112);
+        }
+        .container {
+            background-image: linear-gradient(black, rgb(0, 0, 91));
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+            padding-bottom: 20px;
+            min-height: 100vh;
+        }
+        .headName {
+            color: rgb(30, 196, 113);
+            text-align: center;
+            background-color: rgb(5, 5, 5);
+            font-family: Algerian;
+            background-size: cover;
+            border-radius: 50px;
+            border: 3px solid black;
+            text-shadow: 5px 5px 5px rgb(128, 128, 128);
+         
+        }
+        #items {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .singleItem {
+            cursor: pointer;
+            margin: 10px;
+        }
+        #orderSummary {
+            margin-top: 20px;
+            color: white;
+        }
+        .card {
+            width: 13rem;
+        }
+        .btn-order {
+            background-color: #007bff;
+            color: white;
+        }
+        .btn-order:hover{
+              background-color: blue;
+              color:white;
+        }
+        .category-title {
+            color:yellowgreen;
+            margin-top: 20px;
+        }
+        .category {
+            margin-bottom: 20px;
+        }
+        .card-img-top {
+            padding: 0;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="headName">THE CAR TRADE COMPANY MENU</h1>
+
+        <div id="MarutiSuzukiItems" class="category">
+            <h3 class="category-title">Maruti_Suzuki</h3>
+            <div class="row" id="Maruti_Suzuki"></div>
+        </div>
+        <div id="MahindraItems" class="category">
+            <h3 class="category-title">Mahindra</h3>
+            <div class="row" id="Mahindra"></div>
+        </div>
+        <div id="ToyotaItems" class="category">
+            <h3 class="category-title">Toyota</h3>
+            <div class="row" id="Toyota"></div>
+        </div>
+        <div id="RenaultItems" class="category">
+            <h3 class="category-title">Renault</h3>
+            <div class="row" id="Renault"></div>
+        </div>
+        <div id="BMWItems" class="category">
+            <h3 class="category-title">BMW</h3>
+            <div class="row" id="BMW"></div>
+        </div>
+
+
+        <div id="orderSummary">
+            <h3>Order Summary</h3>
+            <div id="billDetails"></div>
+            <button class="btn btn-primary" onclick="redirectToSummary()">View Full Bill</button>
+        </div>
+    </div>
+    <script>
+        const carItems = [
+        {
+            src:'https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/Scorpio-N/10817/1690351800434/front-left-side-47.jpg',
+            name: 'Scorpio_N',
+            price: 2400000,
+            category: 'Mahindra'
+        },
+        {
+            src: 'https://stimg.cardekho.com/images/car-images/930x620/Mahindra/XUV-3XO/10184/1714405352406/227_Everest-White_e7e5e5.jpg',
+            name: 'XUV_3XO',
+            price: 1500000,
+            category: 'Mahindra'
+        },
+        {
+            src: 'https://stimg.cardekho.com/images/car-images/930x620/Mahindra/XUV700/11422/1718007242013/223_EVEREST-WHITE-DT_c0c1c6.jpg',
+            name: 'XUV_700',
+            price: 2600000,
+            category: 'Mahindra'
+        },
+        {
+            src: 'https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/Bolero-Neo/10766/1690267562292/front-left-side-47.jpg',
+            name: 'Bolero_Neo',
+            price: 1300000,
+            category: 'Mahindra'
+        },
+        {
+            src: 'https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/Thar/10743/1690192572470/3d-model-163.jpg',
+            name: 'Thar',
+            price: 1700000,
+            category: 'Mahindra'
+        },
+
+        {
+            src: 'https://imgd.aeplcdn.com/664x374/n/cw/ec/45691/dzire-exterior-right-front-three-quarter-3.jpeg?isig=0&q=80',
+            name: 'Dzire vdi',
+            price: 800000,
+            category: 'Maruti_Suzuki'
+        },
+        {
+            src: 'https://nexaprod3.azureedge.net/-/media/feature/nexawebsitecarbrand/flash/brand-color/fronx-color-1500x700-nexa_blue.webp',
+            name: 'Fronx',
+            price: 1300000,
+            category: 'Maruti_Suzuki'
+        },
+        {
+            src: 'https://imgd.aeplcdn.com/664x374/n/cw/ec/115601/2022-xl6-exterior-right-front-three-quarter-3.jpeg?isig=0&q=80',
+            name: 'XL6',
+            price: 1400000,
+            category: 'Maruti_Suzuki'
+        },
+        {
+            src:'https://stimg.cardekho.com/images/car-images/930x620/Maruti/Ertiga/8711/1650016330874/222_silver_94979b.jpg',
+            name:'Ertiga',
+            price:1200000,
+            category:'Maruti_Suzuki'
+        },
+        {
+            src:'https://imgd.aeplcdn.com/370x208/n/uovp33a_1591829.jpg?q=80',
+            name:'Grand Vitara',
+            price:2000000,
+            category:'Maruti_Suzuki'
+        },
+        {
+            src:'https://stimg.cardekho.com/images/carexteriorimages/930x620/Toyota/Fortuner/10903/1690544151440/3d-model-163.jpg',
+            name:'Fortuner',
+            price:4000000,
+            category:'Toyota'
+
+        },
+        {
+            src: 'https://stimg.cardekho.com/images/carexteriorimages/930x620/Toyota/Innova-Crysta/9612/1680599962805/exterior-image-165.jpg',
+            name:'Innova_Crysta',
+            price:2700000,
+            category:'Toyota'
+        },	
+        {
+            src:'https://stimg.cardekho.com/images/carexteriorimages/930x620/Toyota/Innova-Hycross/10929/1707376992390/exterior-image-164.jpg',
+            name:'Innova_Hycross',
+            price:3100000,
+            category:'Toyota'
+
+        },
+        {
+            src:'https://stimg.cardekho.com/images/carexteriorimages/930x620/Toyota/Innova-Hycross/10929/1707376992390/exterior-image-164.jpg',
+            name:'Urban_Crusier',
+            price:2000000,
+            category:'Toyota'
+
+        },
+        {
+           
+            src:'https://stimg.cardekho.com/images/carexteriorimages/930x620/Toyota/Innova-Hycross/10929/1707376992390/exterior-image-164.jpg',
+            name:'Glanza',
+            price:1000000,
+            category:'Toyota'
+
+        },
+        {
+            src:'https://stimg.cardekho.com/images/carexteriorimages/930x620/Renault/KWID/10076/1717586320303/front-left-side-47.jpg',
+            name:'KWID',
+            price:700000,
+            category:'Renault'
+        },
+        {
+            src:'https://stimg.cardekho.com/images/carexteriorimages/930x620/Renault/Triber/10070/1683262769249/exterior-image-164.jpg',
+            name:'Triber',
+            price:900000,
+            category:'Renault'
+        },
+        {
+            src:'https://stimg.cardekho.com/images/carexteriorimages/930x620/Renault/Kiger/10042/1717592388399/front-left-side-47.jpg',
+            name:'Kiger',
+            price:1200000,
+            category:'Renault'
+
+        },
+        {
+            src:'https://stimg.cardekho.com/images/carexteriorimages/930x620/Renault/Kardian/11328/1698322434787/front-left-side-47.jpg',
+            name:'Kardian',
+            price:1100000,
+            category:'Renault'
+        },
+        {
+            src:'https://stimg.cardekho.com/images/carexteriorimages/930x620/Renault/Duster/7704/1598257607089/front-left-side-47.jpg',
+            name:'Duster',
+            price:1500000,
+            category:'Renault'
+        },
+       
+        {		
+            src: 'https://imgd.aeplcdn.com/664x374/n/cw/ec/140591/x1-exterior-right-front-three-quarter-7.jpeg?isig=0&q=80',
+            name:'X1',
+            price:5000000,
+            category:'BMW'
+        },
+        {
+            src:'https://imgd.aeplcdn.com/370x208/n/q3ctp0b_1638753.jpg?q=80',
+            name:'X7',
+            price:13400000,
+            category:'BMW'
+        },
+        {
+            src:'https://imgd.aeplcdn.com/370x208/n/cw/ec/137875/i7-exterior-right-front-three-quarter-8.jpeg?isig=0&q=80',
+            name:'i7',
+            price:25000000,
+            category:'BMW'
+        },
+        {
+            src:'https://imgd.aeplcdn.com/370x208/n/40f3bbb_1676647.png?q=80',
+            name:'i5',
+            price:11200000,
+            category:'BMW'
+
+        },
+        {
+            src:'https://imgd.aeplcdn.com/664x374/n/cw/ec/175183/new-5-series-exterior-left-rear-three-quarter.jpeg?isig=0&q=80',
+            name:'5-Series',
+            price:10000000,
+            category:'BMW'
+        },
+
+       
+        ];
+
+        let totalAmount = 0;
+        let orderedItems = [];
+
+        function renderItems() {
+            const Maruti_SuzukiDiv = document.getElementById('Maruti_Suzuki');
+            const MahindraDiv = document.getElementById('Mahindra');
+            const ToyotaDiv = document.getElementById('Toyota');
+            const RenaultDiv = document.getElementById('Renault');
+            const BMWDiv = document.getElementById('BMW');
+            carItems.forEach(item => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'singleItem card text-center col-md-4 col-lg-3';
+                itemDiv.innerHTML = `
+                    <img src="${item.src}" class="card-img-top" alt="${item.name}">
+                    <div class="card-body">
+                        <h5 class="card-title">${item.name}</h5>
+                        <p class="card-text">₹${item.price}</p>
+                        <button class="btn btn-order" onclick="orderItem('${item.name}', ${item.price})">Order</button>
+                    </div>`;
+
+                if (item.category === 'Maruti_Suzuki') {
+                    Maruti_SuzukiDiv .appendChild(itemDiv);
+                } else if (item.category === 'Mahindra') {
+                    MahindraDiv.appendChild(itemDiv);
+                } 
+                else if (item.category === 'Toyota') {
+                    ToyotaDiv.appendChild(itemDiv);
+                }
+                else if(item.category === 'Renault') {
+                    RenaultDiv.appendChild(itemDiv);
+                }
+                else {
+                    BMWDiv.appendChild(itemDiv);
+                }
+            });
+
+        }
+
+        function orderItem(name, price) {
+            fetch('/order', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ carName: name, price: price }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    totalAmount += price;
+                    orderedItems.push(name);
+                    displayBill();
+                } else {
+                    alert("Failed to place order.");
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+        function displayBill() {
+            const billDetails = document.getElementById('billDetails');
+            billDetails.innerHTML = `
+                <p><strong>Cars Ordered:</strong> ${orderedItems.join(', ')}</p>
+                <p><strong>Total Amount:</strong> ₹${totalAmount}</p>
+            `;
+        }
+
+        function redirectToSummary() {
+            window.location.href = '/summary';
+        }
+
+        document.addEventListener('DOMContentLoaded', renderItems);
+    </script>
+</body>
+</html>
